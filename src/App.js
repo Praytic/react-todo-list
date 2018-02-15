@@ -6,19 +6,21 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      term: '',
+      term: {title: '', description: '', isDone: false},
       items: []
     };
   }
 
   onChange = (event) => {
-    this.setState({ term: event.target.value });
+    const newTerm = {...this.state.term};
+    newTerm[event.target.name] = event.target.value;
+    this.setState({ term: newTerm });
   };
 
   onSubmit = (event) => {
     event.preventDefault();
     this.setState({
-      term: '',
+      term: {title: '', description: '', isDone: false},
       items: [...this.state.items, this.state.term]
     });
   };
@@ -27,7 +29,8 @@ export default class App extends Component {
     return (
         <div>
           <form className="App" onSubmit={this.onSubmit}>
-            <input value={this.state.term} onChange={this.onChange} />
+            <input name="title" value={this.state.term.title} onChange={this.onChange} />
+            <input name="description" value={this.state.term.description} onChange={this.onChange} />
             <button>Submit</button>
           </form>
           <List items={this.state.items} />
