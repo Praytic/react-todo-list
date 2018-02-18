@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import List from './List';
+import Modal from './Modal';
 import './App.css';
 
 export default class App extends Component {
@@ -7,9 +8,16 @@ export default class App extends Component {
     super(props);
     this.state = {
       term: {title: '', description: '', isDone: false},
-      items: []
+      items: [],
+      isOpen: false
     };
   }
+
+  toggleModal = () => {
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
+  };
 
   onChange = (event) => {
     const newTerm = {...this.state.term};
@@ -33,6 +41,14 @@ export default class App extends Component {
             <input name="description" value={this.state.term.description} onChange={this.onChange} />
             <button>Submit</button>
           </form>
+          <button onClick={this.toggleModal}>
+            Open the modal
+          </button>
+
+          <Modal show={this.state.isOpen}
+                 onClose={this.toggleModal}>
+            Here's some content for the modal
+          </Modal>
           <List items={this.state.items} />
         </div>
     );
