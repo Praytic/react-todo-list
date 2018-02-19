@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import List from './List';
 import './App.css';
-import { Modal, Navbar, Row, Nav, NavItem, Col, FormGroup, FormControl, Button} from 'react-bootstrap';
+import { Modal, Navbar, Col, FormGroup, FormControl, Button} from 'react-bootstrap';
 
 export default class App extends Component {
   clearTerm = {

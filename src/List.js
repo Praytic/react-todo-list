@@ -5,7 +5,7 @@ class List extends React.Component {
   render() {
     return (
         <Col md={10} mdOffset={1}>
-          <Table striped bordered condensed hover>
+          <Table striped bordered hover>
             <thead>
             <tr>
               <th>Title</th>
