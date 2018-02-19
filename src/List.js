@@ -1,19 +1,30 @@
 import React from "react";
-import { Table } from 'react-bootstrap';
+import {Col, Table} from "react-bootstrap";
 
 const List = props => (
-    <Table striped bordered condensed hover>
+    <Col md={10} mdOffset={1}>
+      <Table striped bordered condensed hover>
+        <thead>
+        <tr>
+          <td>Title</td>
+          <td>Description</td>
+          <td>Is done</td>
+          <td></td>
+        </tr>
+        </thead>
         <tbody>
         {
-            props.items.map((item, index) =>
-                <tr>
-                    <td>{item.title}</td>
-                    <td>{item.description}</td>
-                    <td>{item.isDone}</td>
-                </tr>)
+          props.items.map((item, index) =>
+              <tr key={index}>
+                <td>{item.title}</td>
+                <td>{item.description}</td>
+                <td>{item.isDone}</td>
+                <td>{item.isDone}</td>
+              </tr>)
         }
         </tbody>
-    </Table>
+      </Table>
+    </Col>
 );
 
 export default List;

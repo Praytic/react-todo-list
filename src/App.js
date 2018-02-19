@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import List from './List';
-import NewTodo from './NewTodo';
 import './App.css';
-import {Navbar, Row, Nav, NavItem, Col, FormGroup, FormControl, Button} from 'react-bootstrap';
+import { Modal, Navbar, Row, Nav, NavItem, Col, FormGroup, FormControl, Button} from 'react-bootstrap';
 
 export default class App extends Component {
   clearTerm = {
@@ -60,11 +59,11 @@ export default class App extends Component {
             </Navbar.Collapse>
           </Navbar>
 
-          <NewTodo show={this.state.isOpen}
-                   onClose={this.toggleModal}>
-            <form className="App" onSubmit={this.onSubmit}>
-              <h3>Adding todo</h3>
-
+          <Modal show={this.state.isOpen} onHide={this.toggleModal}>
+            <Modal.Header>
+              <Modal.Title>Adding todo</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
               <FormGroup>
                 <FormControl name="title"
                              type="text"
@@ -73,7 +72,6 @@ export default class App extends Component {
                              onChange={this.onChange}
                              placeholder="Enter title"/>
               </FormGroup>
-
               <FormGroup>
                 <FormControl name="description"
                              componentClass="textarea"
@@ -82,17 +80,12 @@ export default class App extends Component {
                              onChange={this.onChange}
                              placeholder="Enter description"/>
               </FormGroup>
-
-              <FormGroup>
-                <Col mdOffset={8} md={2}>
-                  <Button type="submit">Save</Button>
-                </Col>
-                <Col md={2}>
-                  <Button onClick={this.toggleModal}>Cancel</Button>
-                </Col>
-              </FormGroup>
-            </form>
-          </NewTodo>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button onClick={this.onSubmit}>Save</Button>
+              <Button onClick={this.toggleModal}>Cancel</Button>
+            </Modal.Footer>
+          </Modal>
 
           <List items={this.state.items}/>
         </div>
