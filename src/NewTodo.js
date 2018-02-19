@@ -1,6 +1,6 @@
 import React from 'react';
 
-class Modal extends React.Component {
+class NewTodo extends React.Component {
     render() {
         // Render nothing if the "show" prop is false
         if(!this.props.show) {
@@ -29,19 +29,13 @@ class Modal extends React.Component {
         };
 
         return (
-            <div className="backdrop" style={backdropStyle}>
-                <div className="modal" style={modalStyle}>
+            <div style={backdropStyle}>
+                <div style={modalStyle}>
                     {this.props.children}
-
-                    <div className="footer">
-                        <button onClick={this.props.onClose}>
-                            Close
-                        </button>
-                    </div>
                 </div>
             </div>
         );
     }
 }
 
-export default Modal;
+export default NewTodo;
