@@ -1,30 +1,38 @@
 import React from "react";
-import {Col, Table} from "react-bootstrap";
+import { Button, Glyphicon, Checkbox, Col, Table} from "react-bootstrap";
 
-const List = props => (
-    <Col md={10} mdOffset={1}>
-      <Table striped bordered condensed hover>
-        <thead>
-        <tr>
-          <td>Title</td>
-          <td>Description</td>
-          <td>Is done</td>
-          <td></td>
-        </tr>
-        </thead>
-        <tbody>
-        {
-          props.items.map((item, index) =>
-              <tr key={index}>
-                <td>{item.title}</td>
-                <td>{item.description}</td>
-                <td>{item.isDone}</td>
-                <td>{item.isDone}</td>
-              </tr>)
-        }
-        </tbody>
-      </Table>
-    </Col>
-);
+class List extends React.Component {
+  render() {
+    return (
+        <Col md={10} mdOffset={1}>
+          <Table striped bordered condensed hover>
+            <thead>
+            <tr>
+              <th>Title</th>
+              <th>Description</th>
+              <th width="100">Is done</th>
+              <th width="60"/>
+            </tr>
+            </thead>
+            <tbody>
+            {
+              this.props.items.map((item, index) =>
+                  <tr key={index}>
+                    <td>{item.title}</td>
+                    <td>{item.description}</td>
+                    <td><Checkbox inline inputRef={ref => { item.isDone = ref; }}/></td>
+                    <td>
+                      <Button onClick={this.props.onDelete.bind(this, index)}>
+                        <Glyphicon glyph="trash" />
+                      </Button>
+                    </td>
+                  </tr>)
+            }
+            </tbody>
+          </Table>
+        </Col>
+    );
+  }
+}
 
 export default List;

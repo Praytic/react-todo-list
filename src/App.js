@@ -41,6 +41,12 @@ export default class App extends Component {
     });
   };
 
+  onDelete = (id) => {
+    this.setState(prevState => ({
+      items: this.state.items.filter((_, i) => i !== id)
+    }));
+  };
+
   render() {
     return (
         <div>
@@ -87,7 +93,7 @@ export default class App extends Component {
             </Modal.Footer>
           </Modal>
 
-          <List items={this.state.items}/>
+          <List onDelete={this.onDelete} items={this.state.items}/>
         </div>
     );
   }
