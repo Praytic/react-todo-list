@@ -1,13 +1,14 @@
-import React, {Component} from 'react';
-import List from './List';
-import './App.css';
-import { Modal, Navbar, Col, FormGroup, FormControl, Button} from 'react-bootstrap';
+import React, {Component} from "react";
+import List from "./List";
+import "./App.css";
+import {Modal, Navbar, Col, FormGroup, FormControl, Button} from "react-bootstrap";
 
 export default class App extends Component {
   clearTerm = {
     title: '',
     description: '',
-    isDone: false
+    isDone: false,
+    isVisible: true
   };
 
   constructor(props) {
@@ -47,15 +48,28 @@ export default class App extends Component {
     }));
   };
 
+  onSearch = (event) => {
+    event.preventDefault();
+    var updatedList = this.state.items;
+    var searchQuery = this.searchInput.value;
+    updatedList = updatedList.map((item) => {
+      item.isVisible = !searchQuery || item.title.toLowerCase().search(searchQuery.toLowerCase()) !== -1;
+      return item;
+    });
+    this.setState({items: updatedList});
+  };
+
   render() {
     return (
         <div>
           <Navbar>
             <Navbar.Collapse>
               <Col md={6}>
-                <Navbar.Form>
-                  <FormControl type="text" placeholder="Search"/>
-                </Navbar.Form>
+                <form onSubmit={this.onSearch}>
+                  <FormControl type="text"
+                               placeholder="Search"
+                               inputRef={(e) => { this.searchInput = e }}/>
+                </form>
               </Col>
               <Col md={6}>
                 <Navbar.Form pullRight>

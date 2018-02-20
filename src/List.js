@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Glyphicon, Checkbox, Col, Table} from "react-bootstrap";
+import {Button, Glyphicon, Checkbox, Col, Table} from "react-bootstrap";
 
 class List extends React.Component {
   render() {
@@ -16,17 +16,21 @@ class List extends React.Component {
             </thead>
             <tbody>
             {
-              this.props.items.map((item, index) =>
-                  <tr key={index}>
-                    <td>{item.title}</td>
-                    <td>{item.description}</td>
-                    <td><Checkbox inline inputRef={ref => { item.isDone = ref; }}/></td>
-                    <td>
-                      <Button onClick={this.props.onDelete.bind(this, index)}>
-                        <Glyphicon glyph="trash" />
-                      </Button>
-                    </td>
-                  </tr>)
+              this.props.items
+                  .filter(item => item && item.isVisible)
+                  .map((item, index) =>
+                      <tr key={index}>
+                        <td>{item.title}</td>
+                        <td>{item.description}</td>
+                        <td><Checkbox inline inputRef={ref => {
+                          item.isDone = ref;
+                        }}/></td>
+                        <td>
+                          <Button onClick={this.props.onDelete.bind(this, index)}>
+                            <Glyphicon glyph="trash"/>
+                          </Button>
+                        </td>
+                      </tr>)
             }
             </tbody>
           </Table>
