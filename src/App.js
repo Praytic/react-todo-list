@@ -1,7 +1,8 @@
 import React, {Component} from "react";
-import List from "./List";
+import TodoList from "./TodoList";
+import AddTodoModal from "./AddTodoModal";
 import "./App.css";
-import {Modal, Navbar, Col, FormGroup, FormControl, Button} from "react-bootstrap";
+import { Navbar, Col, FormControl, Button} from "react-bootstrap";
 
 export default class App extends Component {
   clearTerm = {
@@ -33,7 +34,7 @@ export default class App extends Component {
     this.setState({term: newTerm});
   };
 
-  onSubmit = (event) => {
+  onSave = (event) => {
     event.preventDefault();
     this.setState({
       term: this.clearTerm,
@@ -42,9 +43,9 @@ export default class App extends Component {
     });
   };
 
-  onDelete = (id) => {
+  onDelete = (item) => {
     this.setState(prevState => ({
-      items: this.state.items.filter((_, i) => i !== id)
+      items: this.state.items.filter(i => i !== item)
     }));
   };
 
@@ -79,35 +80,14 @@ export default class App extends Component {
             </Navbar.Collapse>
           </Navbar>
 
-          <Modal show={this.state.isOpen} onHide={this.toggleModal}>
-            <Modal.Header>
-              <Modal.Title>Adding todo</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <FormGroup>
-                <FormControl name="title"
-                             type="text"
-                             label="Title"
-                             value={this.state.term.title}
-                             onChange={this.onChange}
-                             placeholder="Enter title"/>
-              </FormGroup>
-              <FormGroup>
-                <FormControl name="description"
-                             componentClass="textarea"
-                             label="Description"
-                             value={this.state.term.description}
-                             onChange={this.onChange}
-                             placeholder="Enter description"/>
-              </FormGroup>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button onClick={this.onSubmit}>Save</Button>
-              <Button onClick={this.toggleModal}>Cancel</Button>
-            </Modal.Footer>
-          </Modal>
+          <AddTodoModal show={this.state.isOpen}
+                        term={this.state.term}
+                        onChange={this.onChange}
+                        onCancel={this.toggleModal}
+                        onSave={this.onSave}/>
 
-          <List onDelete={this.onDelete} items={this.state.items}/>
+          <TodoList onDelete={this.onDelete}
+                    items={this.state.items}/>
         </div>
     );
   }
