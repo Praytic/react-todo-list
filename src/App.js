@@ -1,8 +1,8 @@
 import React, {Component} from "react";
 import TodoList from "./TodoList";
 import AddTodoModal from "./AddTodoModal";
+import TodoNavbar from "./TodoNavbar";
 import "./App.css";
-import { Navbar, Col, FormControl, Button} from "react-bootstrap";
 
 export default class App extends Component {
   clearTerm = {
@@ -49,36 +49,16 @@ export default class App extends Component {
     }));
   };
 
-  onSearch = (event) => {
-    event.preventDefault();
-    var updatedList = this.state.items;
-    var searchQuery = this.searchInput.value;
-    updatedList = updatedList.map((item) => {
-      item.isVisible = !searchQuery || item.title.toLowerCase().search(searchQuery.toLowerCase()) !== -1;
-      return item;
-    });
+  onSearch = (updatedList) => {
     this.setState({items: updatedList});
   };
 
   render() {
     return (
         <div>
-          <Navbar>
-            <Navbar.Collapse>
-              <Col md={6}>
-                <form onSubmit={this.onSearch}>
-                  <FormControl type="text"
-                               placeholder="Search"
-                               inputRef={(e) => { this.searchInput = e }}/>
-                </form>
-              </Col>
-              <Col md={6}>
-                <Navbar.Form pullRight>
-                  <Button onClick={this.toggleModal}>Add todo</Button>
-                </Navbar.Form>
-              </Col>
-            </Navbar.Collapse>
-          </Navbar>
+          <TodoNavbar updateList={this.onSearch}
+                      addTodo={this.toggleModal}
+                      items={this.state.items}/>
 
           <AddTodoModal show={this.state.isOpen}
                         term={this.state.term}
